@@ -1,9 +1,5 @@
 # T-SEC-911-MPL_1
 
-## Trello Board
-
-[Trello du board](https://trello.com/invite/b/6985b60c1948c208087a0f62/ATTI91315aa074ff4e8f5adfa7f6647100c2980C93BA/projet-secu)
-
 ## Architecture Globale
 
 ![Architecture](archi.png)
@@ -23,6 +19,3 @@ L'agent implémente une architecture modulaire communiquant via un canal SSH chi
 - **Exit** : Quitte proprement l'agent en fermant toutes les connexions et en libérant les ressources de manière contrôlée.
 - **Anti-Debug & Furtivité** : Intègre des vérifications pour détecter l'exécution sous un débogueur, interrompant le processus immédiatement si nécessaire. S'exécute silencieusement en tant que Service Windows autonome avec reconnexion automatique.
 
-## Diapositives
-
-[Diapositives Canva](https://www.canva.com/design/DAG_zgICTCM/u2t9ZMBiJlKThoh7FuLGRw/edit?utm_content=DAG_zgICTCM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
