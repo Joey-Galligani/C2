@@ -1,0 +1,8 @@
+keys/
+src/backend/db.json
+src/backend/api.log
+src/frontend/package-lock.json
+src/backend/__pycache__/
+screenshots/
+creds/
+rockyou.txt

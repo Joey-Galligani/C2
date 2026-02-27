@@ -1,0 +1,9 @@
+pyarmor>=9.2.2
+pyinstaller>=6.17.0
+paramiko
+cryptography
+scp
+pywin32
+mss
+Pillow
+impacket>=0.10.0

@@ -1,0 +1,17 @@
+{
+  "server":  {
+    "ip": "10.101.53.67",
+    "port": 2222,
+    "use_tls": false
+  },
+  "agent": {
+    "reconnect_delay": 30,
+    "max_retries": -1,
+    "beacon_interval": 60
+  },
+  "logging":  {
+    "enabled": false,
+    "file": null,
+    "level": "ERROR"
+  }
+}
